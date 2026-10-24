@@ -1,0 +1,56 @@
+---
+const home = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const isHome = Astro.url.pathname.replace(/\/$/, '') === home.replace(/\/$/, '');
+const links = [['Home', 'home'], ['Services', 'services'], ['Recent Work', 'recent-work'], ['Contact', 'contact']];
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href={`${home}#home`} aria-label="Abacus Campers — home">
+      <span class="brand-lettering"><strong>ABACUS CAMPERS</strong></span>
+      <img class="brand-mascot" src={`${home}abacus-mascot-transparent.png`}
+        width="1536" height="1024" alt="" />
+    </a>
+    <nav aria-label="Main navigation">
+      <ul>{links.map(([label, id]) => <li><a href={`${home}#${id}`} data-section={id} aria-current={isHome && id === 'home' ? 'location' : undefined}>{label}</a></li>)}</ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const navigation = document.querySelector<HTMLElement>('.site-header nav');
+  if (navigation && document.getElementById('home')) {
+    const links = Array.from(navigation.querySelectorAll<HTMLAnchorElement>('a[data-section]'));
+    const sections = links.map(link => document.getElementById(link.dataset.section!));
+    const activate = (id: string) => {
+      links.forEach(link => {
+        if (link.dataset.section === id) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    };
+    const update = () => {
+      const marker = window.innerHeight * 0.3;
+      let active = 'home';
+      sections.forEach(section => {
+        if (section && section.getBoundingClientRect().top <= marker) active = section.id;
+      });
+      // The short contact strip may never reach the marker before the page ends.
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) active = 'contact';
+      activate(active);
+    };
+    let pending = false;
+    const scheduleUpdate = () => {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(() => { pending = false; update(); });
+    };
+    links.forEach(link => link.addEventListener('click', event => {
+      if (event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) activate(link.dataset.section!);
+    }));
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+    window.addEventListener('hashchange', scheduleUpdate);
+    window.addEventListener('pageshow', scheduleUpdate);
+    new ResizeObserver(scheduleUpdate).observe(document.body);
+    scheduleUpdate();
+  }
+</script>

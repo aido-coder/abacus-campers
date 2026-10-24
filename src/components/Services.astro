@@ -1,0 +1,23 @@
+---
+import ServiceCard from './ServiceCard.astro';
+import mechanical from '../assets/services/mechanical.JPG';
+import habitation from '../assets/services/habitation.JPG';
+import bodywork from '../assets/services/bodywork.JPG';
+import '../styles/services.css';
+const services = [
+  { title: 'Mechanical & Servicing', icon: 'engine' as const, tone: 'blue' as const, image: mechanical, alt: 'Mechanic working beneath the open bonnet of a motorhome', items: ['Servicing & maintenance', 'Engine repairs & rebuilds', 'Diagnostics', 'Pre-DOE inspections'] },
+  { title: 'Habitation & Repairs', icon: 'home' as const, tone: 'yellow' as const, image: habitation, alt: 'Motorhome interior with exposed timber framing during habitation repairs', items: ['Water ingress / roof leaks', 'Windows & doors', 'Interior & habitation repairs', 'Structural repairs & refurbishments'] },
+  { title: 'Electrical & Upgrades', icon: 'bolt' as const, tone: 'blue' as const, items: ['Solar panel installation', 'Leisure batteries & charging', 'Electrical upgrades', '12V / 230V systems'] },
+  { title: 'Bodywork & Restoration', icon: 'paint' as const, tone: 'yellow' as const, image: bodywork, alt: 'Raised motorhome with rear body panels removed for repair', items: ['Accident & body repairs', 'Paintwork & full resprays', 'Exterior restoration', 'Bespoke projects'] },
+];
+---
+<section class="services-section" id="services" aria-labelledby="services-title">
+  <div class="container">
+    <div class="services-heading">
+      <p class="eyebrow">What we do</p>
+      <h2 id="services-title">Comprehensive Motorhome &amp; Camper Services</h2>
+      <p>Mechanical, habitation, electrical and bodywork — all under one roof.</p>
+    </div>
+    <div class="services-grid">{services.map(service => <ServiceCard {...service} />)}</div>
+  </div>
+</section>

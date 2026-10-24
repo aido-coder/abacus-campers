@@ -1,0 +1,10 @@
+---
+interface Props { src?: string; alt: string; }
+const { src, alt } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+{src ? <img class="project-image" src={`${base}${src.replace(/^\//, '')}`} alt={alt} loading="lazy" width="800" height="500" /> :
+  <div class="project-image project-image--placeholder">
+    <svg viewBox="0 0 48 36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="44" height="32" rx="4" /><circle cx="14" cy="12" r="4" /><path d="m4 30 12-11 8 7 9-13 12 17" /></svg>
+    <span>Mock project · photo placeholder</span>
+  </div>}

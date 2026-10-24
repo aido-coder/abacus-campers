@@ -1,0 +1,31 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProjectImage from '../../components/ProjectImage.astro';
+import { projects, type Project } from '../../data/projects';
+import '../../styles/projects.css';
+export function getStaticPaths() {
+  return projects.map(project => ({ params: { slug: project.slug }, props: { project } }));
+}
+interface Props { project: Project; }
+const { project } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<Layout title={`${project.title} | Mock project | Abacus Campers`} description="Placeholder project for website layout development. This is not a completed Abacus Campers project.">
+  <article class="project-detail">
+    <div class="container">
+      <a class="project-back" href={`${base}#recent-work`}>← Back to Recent Projects</a>
+      <p class="projects-notice">Mock project — all descriptions, work items and image areas are placeholders. This is not a completed Abacus Campers project.</p>
+      <h1>{project.title}</h1>
+      <div class="project-tags">{project.categories.map(category => <span>{category}</span>)}</div>
+      <p class="project-description">{project.description}</p>
+      <section aria-labelledby="gallery-title">
+        <h2 id="gallery-title">Image gallery <small>(placeholders)</small></h2>
+        <div class="project-gallery">{project.gallery.map(photo => <figure><ProjectImage {...photo} /><figcaption>{photo.caption}</figcaption></figure>)}</div>
+      </section>
+      <section class="project-work" aria-labelledby="work-title">
+        <h2 id="work-title">Work carried out <small>(example only)</small></h2>
+        <ul>{project.work.map(item => <li>{item}</li>)}</ul>
+      </section>
+    </div>
+  </article>
+</Layout>
