@@ -1,0 +1,31 @@
+---
+import CallToAction from './CallToAction.astro';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<section class="hero" id="home" aria-labelledby="hero-title">
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">Dublin 11 | Local &amp; independent</p>
+      <h1 id="hero-title">Motorhome<br />&amp; Camper<br /><span>Specialists</span></h1>
+      <p class="hero-description">From routine servicing and pre-DOE checks to engine repairs, habitation work, solar upgrades, bodywork and full restoration — we keep you on the road.</p>
+      <CallToAction />
+      <!-- Copy follows the approved mockup; business claims still need owner verification. -->
+      <ul class="hero-details" aria-label="Workshop highlights">
+        <li><svg viewBox="0 0 32 36" aria-hidden="true"><path d="M16 1 30 6v10c0 9-7 15-14 19C9 31 2 25 2 16V6Z" fill="currentColor"/><path d="m10 17 4 4 8-10" fill="none" stroke="white" stroke-width="3"/></svg><span>Experienced<br />&amp; Trusted</span></li>
+        <li><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M32 3a11 11 0 0 1-13 15L8 32a5 5 0 0 1-7-7l14-11A11 11 0 0 1 30 1l-7 7 5 5Z" fill="currentColor"/></svg><span>All Makes<br />&amp; Models</span></li>
+        <li><svg viewBox="0 0 32 36" aria-hidden="true"><path d="M16 1C-4 1-3 20 16 35 35 20 36 1 16 1Z" fill="currentColor"/><circle cx="16" cy="13" r="5" fill="white"/></svg><span>Dublin 11<br />Easy Access</span></li>
+      </ul>
+    </div>
+    <div class="hero-photo">
+      <img src={`${base}abacus-hero2.JPG`} width="4032" height="3024"
+        alt="Motorhome raised in the workshop with open doors, exposed rear wheel area and repair equipment"
+        fetchpriority="high" />
+      <div class="hero-callout">
+        <svg viewBox="0 0 70 60" aria-hidden="true" focusable="false">
+          <path d="M61 50C29 55 8 35 17 10M17 10 5 20M17 10 26 23" />
+        </svg>
+        <p>Expert repairs,<br /><span>big or small</span></p>
+      </div>
+    </div>
+  </div>
+</section>

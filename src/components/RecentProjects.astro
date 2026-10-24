@@ -1,0 +1,17 @@
+---
+import { projects } from '../data/projects';
+import ProjectCard from './ProjectCard.astro';
+import '../styles/projects.css';
+---
+<section class="recent-projects" id="recent-work" aria-labelledby="work-title">
+  <div class="container">
+    <div class="projects-heading">
+      <div>
+        <p class="eyebrow">Recent work</p>
+        <h2 id="work-title">Recent Projects</h2>
+        <p>A selection of repairs, upgrades and restorations.</p>
+      </div>
+    </div>
+    <ul class="projects-grid" aria-label="Mock recent projects">{projects.map(project => <ProjectCard project={project} />)}</ul>
+  </div>
+</section>
